@@ -1,11 +1,14 @@
 import GalleryItem from '../GalleryItem/GalleryItem';
+import './GalleryList.scss';
 
 export default function GalleryList({ galleryPhotos }) {
-  return (
-    <div data-testid="galleryList">
-      {galleryPhotos.map((photo) => {
-        return <GalleryItem photo={photo} />;
-      })}
-    </div>
-  );
+  return galleryPhotos.map((photo) => {
+    return (
+      <div key={photo.id} data-testid="galleryList">
+        <div>
+          <GalleryItem photo={photo} />
+        </div>
+      </div>
+    );
+  });
 }
