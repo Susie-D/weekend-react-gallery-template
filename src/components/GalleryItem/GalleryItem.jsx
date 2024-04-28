@@ -1,20 +1,33 @@
+import axios from 'axios';
 import { useState } from 'react';
 import './GalleryItem.scss';
 
 export default function GalleryItem({ photo }) {
-  const addLike = () => {
+  const addLike = (photoId) => {
     setNumberOfLikes(numberOfLikes + 1);
+    axios({
+      method: 'PUT',
+      url: `/api/gallery/${photoId}`,
+    })
+      .then((response) => {
+        console.log('Data', response.data);
+      })
+      .catch((error) => {
+        console.log('We have an error on LIKES', error);
+      });
   };
 
-  const [numberOfLikes, setNumberOfLikes] = useState(0);
+  const [numberOfLikes, setNumberOfLikes] = useState(photo.likes);
   const [toggleImage, setToggleImage] = useState(false);
   const [toggleDescription, setToggleDescription] = useState(false);
 
   return (
     <span className="gallery-item-container" data-testid="galleryItem">
       <div className="gallery-item-content">
+        <p>{photo.title}</p>
         {!toggleImage && (
           <img
+            data-testid="toggle"
             src={photo.url}
             onClick={() => {
               setToggleImage(!toggleImage);
@@ -25,6 +38,7 @@ export default function GalleryItem({ photo }) {
 
         {toggleDescription && (
           <span
+            data-testid="toggle"
             onClick={() => {
               setToggleImage(!toggleImage);
               setToggleDescription(!toggleDescription);
@@ -34,11 +48,13 @@ export default function GalleryItem({ photo }) {
           </span>
         )}
 
-        <button onClick={() => addLike()}>Love it</button>
-        {numberOfLikes ? (
-          <p>{numberOfLikes} people love this</p>
+        <button data-testid="like" onClick={() => addLike(photo.id)}>
+          Like It
+        </button>
+        {!photo.likes ? (
+          <p>No liked this photo yet. </p>
         ) : (
-          <p>No likes this photo! </p>
+          <p>{numberOfLikes} people like this!</p>
         )}
       </div>
     </span>

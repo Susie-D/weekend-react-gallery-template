@@ -16,7 +16,6 @@ function App() {
       url: '/api/gallery',
     })
       .then((response) => {
-        console.log('Data:', response.data);
         setGalleryPhotos(response.data);
       })
       .catch((error) => {
