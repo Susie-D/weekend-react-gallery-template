@@ -35,8 +35,11 @@ export default function GalleryItem({ photo }) {
         )}
 
         <button onClick={() => addLike()}>Love it</button>
-
-        <p>{numberOfLikes} people love this</p>
+        {numberOfLikes ? (
+          <p>{numberOfLikes} people love this</p>
+        ) : (
+          <p>No likes this photo! </p>
+        )}
       </div>
     </span>
   );
