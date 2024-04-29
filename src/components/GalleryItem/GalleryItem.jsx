@@ -22,8 +22,8 @@ export default function GalleryItem({ photo }) {
   const [toggleDescription, setToggleDescription] = useState(false);
 
   return (
-    <span className="gallery-item-container" data-testid="galleryItem">
-      <div className="gallery-item-content">
+    <span className="gallery-item-container">
+      <div className="gallery-item-content" data-testid="galleryItem">
         <p>{photo.title}</p>
         {!toggleImage && (
           <img
